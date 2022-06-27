@@ -9,7 +9,6 @@ use Inline (
     with        => 'Alien::OpenMP',
 );
 
-# constructor
 sub TIESCALAR {
   my $pkg  = shift;
   my $array_ref = shift;

@@ -1,4 +1,4 @@
-package Tie::OpenMP::Experimental::Scalar::ArrayReduceSum;
+package Tie::OpenMP::Experimental::Scalar::ArrayReduceSubtract;
 
 use strict;
 use warnings;
@@ -9,7 +9,6 @@ use Inline (
     with        => 'Alien::OpenMP',
 );
 
-# constructor
 sub TIESCALAR {
   my $pkg  = shift;
   my $array_ref = shift;
@@ -23,7 +22,7 @@ sub STORE {
 
 sub FETCH {
   my ($self) = shift;
-  my $sum = sum($self);
+  my $sum = subtract($self);
   return $sum;
 }
 
@@ -34,7 +33,7 @@ __C__
 #include <stdlib.h>
 
 // began life as a recipe from Inline::C::Cookbook
-SV *sum(SV *array) {
+SV *subtract(SV *array) {
     int numelts, i;
     if ((!SvROK(array))
         || (SvTYPE(SvRV(array)) != SVt_PVAV)
@@ -48,9 +47,9 @@ SV *sum(SV *array) {
     int total = 0;
     #pragma omp parallel shared(total)
     {
-      #pragma omp for reduction(+:total)
+      #pragma omp for reduction(-:total)
       for (i = 0; i <= numelts; i++) {
-        total += SvIV(*av_fetch((AV *)SvRV(array), i, 0));
+        total -= SvIV(*av_fetch((AV *)SvRV(array), i, 0));
       }
     }
     return newSViv(total);

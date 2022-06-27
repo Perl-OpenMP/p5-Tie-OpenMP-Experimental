@@ -11,17 +11,27 @@ what would work; then some viable options will be found.
 
 Challenges Check List
 
-Attempts at Scalar interfaces:
+Attemps at HASH interfaces:
+
+Attempts at ARRAY interfaces:
+
+Attempts at SCALAR interfaces:
 
   Title:
     OpenMP::Experimental::Scalar::ArrayReduceSum
-  Implementation:
+    OpenMP::Experimental::Scalar::ArrayReduceSubtract
+  Implementation(s):
     ./lib/Tie/OpenMP/Experimental/Scalar/ArrayReduceSum.pm
-  Driver:
+    ./lib/Tie/OpenMP/Experimental/Scalar/ArrayReduceSubtract.pm
+  Driver(s):
     ./examples/tie-sum.pl
+    ./examples/tie-subtract.pl
   Status/Comment:
     Probably not what we want because it presents a very specific
     operation to be done over an array as a fetch of a scalar. This
     means, for one thing, that this approach requires a different
     scalar value for each kind of operation one wishes to perform
     over the underlying array of numbers.
+
+    On the contrary, this sort of thing might be exactly what is
+    needed.
