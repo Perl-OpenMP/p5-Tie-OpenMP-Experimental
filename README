@@ -1,0 +1,27 @@
+Tie::OpenMP::Experimental
+
+The goal of this repository and name space is to do some
+language exploration on the best way to marry C<Tie::>'d
+things and underlying C<Inline::C> functions that have been
+threaded using OpenMP.
+
+Most ideas and attempts will not be what we want, but if
+we keep at this long enough to develop some intuition about
+what would work; then some viable options will be found.
+
+Challenges Check List
+
+Attempts at Scalar interfaces:
+
+  Title:
+    OpenMP::Experimental::Scalar::ArrayReduceSum
+  Implementation:
+    ./lib/Tie/OpenMP/Experimental/Scalar/ArrayReduceSum.pm
+  Driver:
+    ./examples/tie-sum.pl
+  Status/Comment:
+    Probably not what we want because it presents a very specific
+    operation to be done over an array as a fetch of a scalar. This
+    means, for one thing, that this approach requires a different
+    scalar value for each kind of operation one wishes to perform
+    over the underlying array of numbers.
